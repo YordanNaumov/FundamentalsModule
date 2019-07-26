@@ -14,7 +14,7 @@ namespace _1.Furniture
             
             while (command != "Purchase")
             {
-                Regex regex = new Regex(); 
+                Regex regex = new Regex(>> ([\w\s] +) <<); 
 
                 command = Console.ReadLine();
             }

@@ -11,10 +11,10 @@ namespace _1.Furniture
             string command = Console.ReadLine();
             List<string> boughtItems = new List<string>();
             double sumTotal = 0;
-            
+
             while (command != "Purchase")
             {
-                Regex regex = new Regex(@">>(.*)<<([\d]+\.[\d]*|[\d]+)!([\d]+)");//>>([\w\s]+)<<([\d]+\.[\d]*|[\d]+)!([\d]+)
+                Regex regex = new Regex(@">>([\w\s]+)<<([\d]+\.[\d]*|[\d]+)!([\d]+)");//>>([\w\s]+)<<([\d]+\.[\d]*|[\d]+)!([\d]+)
                 var matches = regex.Matches(command);
 
                 foreach (Match match in matches)

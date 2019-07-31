@@ -11,7 +11,7 @@ namespace _2.Emoji_Sumator
         {
             string input = Console.ReadLine();
 
-            Regex validEmoji = new Regex(@" +(:([a-z]{4,50}):)[ |!*|\?|,*|\.*]");
+            Regex validEmoji = new Regex(@"(?<=[\s])(:([a-z]{4,}):)(?=[\s,.!?])");
 
             var matchedEmoji = validEmoji.Matches(input);
             int totalPower = 0;
@@ -44,7 +44,7 @@ namespace _2.Emoji_Sumator
                 totalPower *= 2;
             }
 
-            if (allEmoji.Count >= 1)
+            if (allEmoji.Count > 0)
             {
                 Console.Write("Emojis found: ");
                 Console.WriteLine(string.Join(", ", finalEmoji));

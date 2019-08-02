@@ -1,31 +1,49 @@
 ﻿using System;
 using System.Linq;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
-namespace _02.Song_Encryption
+namespace TEST
 {
     class Program
     {
         static void Main()
         {
-            Regex validInformation = new Regex(@"(?<!\w )\b([A-Z][a-z ']+)\b:([A-Z ]+)");
             while (true)
             {
-                string command = Console.ReadLine();
+                string[] command = Console.ReadLine().Split(':').ToArray();
 
-                if (command == "end")
+                if (command[0] == "end")
                 {
                     break;
                 }
-                else if (validInformation.IsMatch(command))
-                {
-                    string[] artistAndSong = command.Split(':').ToArray();
-                    string artist = artistAndSong[0];
-                    string song = artistAndSong[1];
-                    int key = artist.Length;
+                string artist = command[0];
+                string song = command[1];
+                bool bothValid = true;
 
-                    string encryptedArtist = Encryption(artist, key);
-                    string encryptedSong = Encryption(song, key);
+                if (artist[0] < 65 || artist[0] > 90)
+                {
+                    bothValid = false;
+                }
+                for (int i = 1; i < artist.Length; i++)
+                {
+                    if ((artist[i] < 97 || artist[i] > 122) && artist[i] != 32 && artist[i] != 39)
+                    {
+                        bothValid = false;
+                    }
+                }
+
+                for (int i = 0; i < song.Length; i++)
+                {
+                    if ((song[i] < 65 || song[i] > 90) && song[i] != 32)
+                    {
+                        bothValid = false;
+                    }
+                }
+
+                if (bothValid)
+                {
+                    string encryptedArtist = Encryption(artist, artist.Length);
+                    string encryptedSong = Encryption(song, artist.Length);
 
                     Console.WriteLine($"Successful encryption: {encryptedArtist}@{encryptedSong}");
                 }
@@ -57,7 +75,6 @@ namespace _02.Song_Encryption
                     {
                         encryptedNumber -= 26;
                     }
-
                     newLetter = Convert.ToChar(encryptedNumber);
                 }
                 encryptedWord += newLetter;
@@ -66,3 +83,4 @@ namespace _02.Song_Encryption
         }
     }
 }
+
